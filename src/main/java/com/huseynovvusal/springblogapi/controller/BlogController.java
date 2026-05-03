@@ -112,4 +112,16 @@ public class BlogController {
                 tags, author, createdFrom, createdTo, q, onlyPublished);
         return blogService.filter(tags, author, createdFrom, createdTo, q, onlyPublished, pageable);
     }
+
+    @GetMapping("/search")
+public Page<BlogResponseDto> search(
+        @RequestParam(required = false) String q,
+        @PageableDefault(size = 20) Pageable pageable) {
+
+    logger.info("Searching blogs with keyword: {}", keyword);
+    return blogService.search(keyword, pageable);
+}
+
+    
+    
 }
