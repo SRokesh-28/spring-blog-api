@@ -112,4 +112,21 @@ public class BlogController {
                 tags, author, createdFrom, createdTo, q, onlyPublished);
         return blogService.filter(tags, author, createdFrom, createdTo, q, onlyPublished, pageable);
     }
+
+    /**
+ * Searches blogs by keyword in title, content, or tags.
+ *
+ * @param q search keyword
+ * @param pageable pagination info
+ * @return paginated list of blogs
+ */
+  @GetMapping("/search")
+  public Page<BlogResponseDto> search(
+        @RequestParam(name = "q", required = false) String q,
+        @PageableDefault(size = 20) Pageable pageable) {
+
+    logger.info("Searching blogs with keyword: {}", q);
+    return blogService.search(q, pageable);
+   }
+
 }
